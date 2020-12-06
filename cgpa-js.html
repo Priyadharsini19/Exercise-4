@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CGPA calculator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"type="text/css"href="body.css"/>
+    <link rel="stylesheet"type="text/css"href="h1.css"/>
+    <style>
+        table.table-bordered{
+            border:2px solid coral;
+            margin-top:20px;
+        }
+        table.table-bordered > thead > tr > th{
+            border:2px solid coral;
+        }
+        table.table-bordered > tbody > tr > td{
+            border:2px solid coral;
+            width:140px;
+         }
+        .table {
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <center><h1><b>CGPA CALCULATOR</b></h1></center>
+    <center>
+    <table id="tab" class="table table-bordered" style="border-color:black;">
+        <thead>
+            <tr>
+                <th style="text-align:center;background-color:#0174DF;color:white" colspan="3">COURSE</th>
+            </tr>
+        </thead>
+        <thead>
+            <tr style="color:#800000;text-align:center;background-color:#90EE90">
+                <th>COURSE NAME</th>
+                <th>CREDITS</th>
+                <th>GRADE</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>SEMESTER 1</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    </center></br></br>
+    <center><button onclick="addrows()">ENTER COURSE</button>
+    <button onclick="calc()">CALCULATE</button><br></center>
+    <script>
+        var j=2;
+      function addrows()
+      {
+        var tab=document.getElementById("tab");
+        var r=tab.insertRow(-1);
+        var c1=r.insertCell(0);
+        var c2=r.insertCell(1);
+        var c3=r.insertCell(2);
+        var a=prompt("Enter the course name");
+        var b=prompt("Enter the credits");
+        var c=prompt("Enter the Grade");
+         c1.innerHTML=a;
+         c2.innerHTML=b;
+         c3.innerHTML=c;
+     }
+    function calc()
+    {
+        var gpa,tot=0,totc=0;
+        var n = document.getElementById("tab").rows.length;
+        for(var i=3;i < n;i++)
+        {
+            var d1=document.getElementById("tab").rows[i].cells[1].innerHTML;
+            var d2=document.getElementById("tab").rows[i].cells[2].innerHTML;
+            if((/^(\s|&nbsp;)*$/.test(d1))&&(/^(\s|&nbsp;)*$/.test(d2)))
+                continue;
+            totc=totc+parseInt(d1);
+            if(d2=='S')
+                var g=10;
+            else if(d2=='A')
+                var g=9;
+            else if(d2=='B')
+                var g=8;
+            else if(d2=='C')
+                var g=7;
+            else if(d2=='D')
+                var g=6;
+            else if(d2=='E')
+                var g=5;
+            else
+                var g=0;   
+            tot = tot + g * parseInt( d1 );       
+        }
+        cgpa = parseFloat(tot / totc).toFixed(2);
+        document.getElementById('res1').innerHTML=cgpa;
+        var table = document.getElementById("tab");
+        var r = table.insertRow(-1);
+        var c1 = r.insertCell(0);
+        var c2 = r.insertCell(1);
+        var c3 = r.insertCell(2);
+        c1.innerHTML="SEMESTER "+j;       
+        j++;
+    }   
+</script>
+<center>
+    <br><h4>CGPA is:</h4>
+    <h4 id="res1"></h4>
+    </center>
+</body>  
+</html>
